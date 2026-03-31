@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Toolkit | Advanced Security Utilities</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Security Toolkit</h1>
+            <p>Professional security utilities – ethical use only  - Created By Reno Budiman</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="network">Network Scanner</button>
+            <button class="tab-btn" data-tab="hash">Hash Generator</button>
+            <button class="tab-btn" data-tab="password">Password Gen</button>
+            <button class="tab-btn" data-tab="webinfo">Web Info</button>
+            <button class="tab-btn" data-tab="subdomain">Subdomain Finder</button>
+            <button class="tab-btn" data-tab="base64">Base64</button>
+            <button class="tab-btn" data-tab="ipinfo">IP Info</button>
+            <button class="tab-btn" data-tab="filehash">File Hash</button>
+        </div>
+
+        <!-- Network Scanner Tab -->
+        <div id="network" class="tab-content active">
+            <div class="card">
+                <h2>Network Scanner</h2>
+                <p>Scan a target IP/hostname for open ports (range 1-65535).</p>
+                <input type="text" id="scan-target" placeholder="Target (e.g., 192.168.1.1 or example.com)">
+                <div class="input-group">
+                    <label>Start Port: <input type="number" id="scan-start" value="1" min="1" max="65535"></label>
+                    <label>End Port: <input type="number" id="scan-end" value="1024" min="1" max="65535"></label>
+                </div>
+                <button id="scan-btn" class="btn">Start Scan</button>
+                <div class="output" id="scan-output"></div>
+                <button class="copy-btn" data-target="scan-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- Hash Generator Tab -->
+        <div id="hash" class="tab-content">
+            <div class="card">
+                <h2>Hash Generator</h2>
+                <p>Generate MD5, SHA1, SHA256, SHA512 of input text.</p>
+                <input type="text" id="hash-text" placeholder="Enter text to hash">
+                <button id="hash-btn" class="btn">Generate Hashes</button>
+                <div class="output" id="hash-output"></div>
+                <button class="copy-btn" data-target="hash-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- Password Generator Tab -->
+        <div id="password" class="tab-content">
+            <div class="card">
+                <h2>Password Generator</h2>
+                <p>Create a strong random password.</p>
+                <div class="input-group">
+                    <label>Length: <input type="number" id="pass-length" value="12" min="4" max="64"></label>
+                </div>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="pass-upper" checked> Uppercase</label>
+                    <label><input type="checkbox" id="pass-lower" checked> Lowercase</label>
+                    <label><input type="checkbox" id="pass-digits" checked> Digits</label>
+                    <label><input type="checkbox" id="pass-symbols" checked> Symbols</label>
+                </div>
+                <button id="pass-btn" class="btn">Generate</button>
+                <div class="output" id="pass-output"></div>
+                <div id="pass-strength" class="strength"></div>
+                <button class="copy-btn" data-target="pass-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- Web Info Tab -->
+        <div id="webinfo" class="tab-content">
+            <div class="card">
+                <h2>Web Info (Recon)</h2>
+                <p>Fetch HTTP status, headers, response time, and SSL info.</p>
+                <input type="text" id="web-url" placeholder="Enter URL (e.g., example.com)">
+                <button id="web-btn" class="btn">Fetch Info</button>
+                <div class="output" id="web-output"></div>
+                <button class="copy-btn" data-target="web-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- Subdomain Finder Tab -->
+        <div id="subdomain" class="tab-content">
+            <div class="card">
+                <h2>Subdomain Finder</h2>
+                <p>Discover common subdomains via DNS resolution.</p>
+                <input type="text" id="sub-domain" placeholder="Domain (e.g., example.com)">
+                <button id="sub-btn" class="btn">Find Subdomains</button>
+                <div class="output" id="sub-output"></div>
+                <button class="copy-btn" data-target="sub-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- Base64 Tab -->
+        <div id="base64" class="tab-content">
+            <div class="card">
+                <h2>Base64 Encoder / Decoder</h2>
+                <textarea id="base64-text" rows="3" placeholder="Enter text to encode/decode"></textarea>
+                <div class="radio-group">
+                    <label><input type="radio" name="base64-mode" value="encode" checked> Encode</label>
+                    <label><input type="radio" name="base64-mode" value="decode"> Decode</label>
+                </div>
+                <button id="base64-btn" class="btn">Convert</button>
+                <div class="output" id="base64-output"></div>
+                <button class="copy-btn" data-target="base64-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- IP Info Tab -->
+        <div id="ipinfo" class="tab-content">
+            <div class="card">
+                <h2>IP Geolocation</h2>
+                <p>Get location and ISP information for an IP address.</p>
+                <input type="text" id="ip-address" placeholder="IP address (e.g., 8.8.8.8)">
+                <button id="ip-btn" class="btn">Lookup</button>
+                <div class="output" id="ip-output"></div>
+                <button class="copy-btn" data-target="ip-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+
+        <!-- File Hash Tab -->
+        <div id="filehash" class="tab-content">
+            <div class="card">
+                <h2>File Hash</h2>
+                <p>Upload a file to compute MD5 and SHA256 checksums.</p>
+                <input type="file" id="file-input" accept="*/*">
+                <button id="filehash-btn" class="btn">Compute Hashes</button>
+                <div class="output" id="filehash-output"></div>
+                <button class="copy-btn" data-target="filehash-output" style="display: none;">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
